@@ -1,0 +1,6 @@
+name = DNA Generator
+description = Given a DNA sequence, produces the other half of the double helix.
+package = Custom Modules
+core = 7.x
+files[] = dna.module
+files[] = dna.test

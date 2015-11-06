@@ -1,0 +1,77 @@
+<?php
+
+function dna_menu() {
+  $items['dna'] = array(
+    'title'           => 'DNA Generator',
+    'page callback'   => 'drupal_get_form',
+    'page arguments'  => array('dna_form'),
+    'access callback' => TRUE,
+    'type'            => MENU_NORMAL_ITEM,
+  );
+
+  $items['dna'] = array(
+    'title'           => 'Success!',
+    'page callback'   => 'dna_success',
+    'access callback' => TRUE,
+    'type'            => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+function dna_form() {
+  $form['sequence'] = array(
+    '#title'        => 'DNA Sequence',
+    '#type'         => 'textfield',
+    '#description'  => t("Provide a DNA sequence in a format similar to this: 'ATTACG...'"),
+  );
+
+  $form['submit'] = array(
+    '#type'   => 'submit',
+    '#value'  => 'Complete Sequence',
+  );
+
+  return $form;
+}
+
+function complete_dna($sequence) {
+  //Make sure sequence is upper cased.
+  strtoupper($sequence);
+  //Explode into array.
+  explode("",$sequence);
+
+  //Start counter and setup array for other half of sequence.
+  $counter = 0;
+  $result = [];
+  //Iterate through $sequence.
+  foreach ($sequence as $letter) {
+    if ($letter[$counter] == 'A') {
+      array_push($results, 'T');
+      $counter++;
+    } elseif ($letter[$counter] == 'T') {
+      array_push($results, 'A');
+      $counter++;
+    } elseif ($letter[$counter] == 'G') {
+      array_push($results, 'C');
+      $counter++;
+    } elseif ($letter[$counter] == 'C') {
+      array_push($results, 'G');
+      $counter++;
+    }
+  }
+  implode("", $results);
+  return $results;
+}
+
+function dna_form_submit($form, &$form_state) {
+  $sequence = $form_state['values']['sequence'];
+
+  $_SESSION['dna_output'] = complete_dna($sequence);
+
+  $form_state['redirect'] = 'dna_success_page';
+}
+
+function dna_success() {
+  $results = $_SESSION['dna_output'];
+  return $results;
+}
