@@ -1,6 +1,6 @@
 <?php
 
-//Unit tests:
+//Unit testing:
 class DNATestCase extends DrupalUnitTestCase {
 
   public static function getInfo() {
@@ -33,5 +33,27 @@ class DNATestCase extends DrupalUnitTestCase {
     $result = complete_dna($input);
     $expected_output = 'TGAC';
     $this->assertEqual($result, $expected_output, $description);
+  }
+}
+
+//Functional testing:
+class DNATests extends DrupalWebTestCase {
+
+  public static function getInfo() {
+    return array(
+      'name'        => 'DNA Completer Display Tests',
+      'description' => 'Tests that DNA Completer displays properly.',
+      'group'       => 'Code Review',
+    );
+  }
+
+  public function setUp() {
+    parent::setUp(array('dna'));
+  }
+
+  public function testDisplay() {
+    $info['sequence'] = "GATC";
+    $this->drupalPost('dna', $info, t("Complete Sequence"));
+    $this->assertText("CTAG", "It worked!");
   }
 }

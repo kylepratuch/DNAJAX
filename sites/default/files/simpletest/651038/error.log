@@ -1,0 +1,13 @@
+[06-Nov-2015 17:19:36 America/Los_Angeles] PHP Fatal error:  Call to undefined method DNATests::druaplGet() in /var/www/html/dnajax/sites/all/modules/custom/DNA/dna.test on line 57
+[06-Nov-2015 17:19:36 America/Los_Angeles] PHP Stack trace:
+[06-Nov-2015 17:19:36 America/Los_Angeles] PHP   1. {main}() /var/www/html/dnajax/index.php:0
+[06-Nov-2015 17:19:36 America/Los_Angeles] PHP   2. menu_execute_active_handler() /var/www/html/dnajax/index.php:21
+[06-Nov-2015 17:19:36 America/Los_Angeles] PHP   3. call_user_func_array() /var/www/html/dnajax/includes/menu.inc:527
+[06-Nov-2015 17:19:36 America/Los_Angeles] PHP   4. system_batch_page() /var/www/html/dnajax/includes/menu.inc:527
+[06-Nov-2015 17:19:36 America/Los_Angeles] PHP   5. _batch_page() /var/www/html/dnajax/modules/system/system.admin.inc:2379
+[06-Nov-2015 17:19:36 America/Los_Angeles] PHP   6. _batch_do() /var/www/html/dnajax/includes/batch.inc:80
+[06-Nov-2015 17:19:36 America/Los_Angeles] PHP   7. _batch_process() /var/www/html/dnajax/includes/batch.inc:161
+[06-Nov-2015 17:19:36 America/Los_Angeles] PHP   8. call_user_func_array() /var/www/html/dnajax/includes/batch.inc:284
+[06-Nov-2015 17:19:36 America/Los_Angeles] PHP   9. _simpletest_batch_operation() /var/www/html/dnajax/includes/batch.inc:284
+[06-Nov-2015 17:19:36 America/Los_Angeles] PHP  10. DrupalTestCase->run() /var/www/html/dnajax/modules/simpletest/simpletest.module:178
+[06-Nov-2015 17:19:36 America/Los_Angeles] PHP  11. DNATests->testValidation() /var/www/html/dnajax/modules/simpletest/drupal_web_test_case.php:517
