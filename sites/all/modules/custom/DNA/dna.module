@@ -2,20 +2,19 @@
 
 function dna_menu() {
   $items['dna'] = array(
-    'title'           => 'DNA Generator',
+    'title'           => 'DNA Completer',
     'page callback'   => 'drupal_get_form',
     'page arguments'  => array('dna_form'),
     'access callback' => TRUE,
     'type'            => MENU_NORMAL_ITEM,
   );
 
-  $items['dna'] = array(
+  $items['dna_success'] = array(
     'title'           => 'Success!',
     'page callback'   => 'dna_success',
     'access callback' => TRUE,
     'type'            => MENU_CALLBACK,
   );
-
   return $items;
 }
 
@@ -23,14 +22,13 @@ function dna_form() {
   $form['sequence'] = array(
     '#title'        => 'DNA Sequence',
     '#type'         => 'textfield',
-    '#description'  => t("Provide a DNA sequence in a format similar to this: 'ATTACG...'"),
+    '#description'  => t("Provide a DNA sequence in a format similar to this: 'ATTACG.'"),
   );
 
   $form['submit'] = array(
     '#type'   => 'submit',
     '#value'  => 'Complete Sequence',
   );
-
   return $form;
 }
 
@@ -38,28 +36,24 @@ function complete_dna($sequence) {
   //Make sure sequence is upper cased.
   strtoupper($sequence);
   //Explode into array.
-  explode("",$sequence);
+  $letters = str_split($sequence);
 
-  //Start counter and setup array for other half of sequence.
-  $counter = 0;
-  $result = [];
+  //Setup array for other half of sequence.
+  $opposites = array();
   //Iterate through $sequence.
-  foreach ($sequence as $letter) {
-    if ($letter[$counter] == 'A') {
-      array_push($results, 'T');
-      $counter++;
-    } elseif ($letter[$counter] == 'T') {
-      array_push($results, 'A');
-      $counter++;
-    } elseif ($letter[$counter] == 'G') {
-      array_push($results, 'C');
-      $counter++;
-    } elseif ($letter[$counter] == 'C') {
-      array_push($results, 'G');
-      $counter++;
+  foreach ($letters as $letter) {
+    if ($letter == 'A') {
+      array_push($opposites, 'T');
+    } elseif ($letter == 'T') {
+      array_push($opposites, 'A');
+    } elseif ($letter == 'G') {
+      array_push($opposites, 'C');
+    } elseif ($letter == 'C') {
+      array_push($opposites, 'G');
     }
   }
-  implode("", $results);
+  //Implode and return results.
+  $results = implode(" ", $opposites);
   return $results;
 }
 

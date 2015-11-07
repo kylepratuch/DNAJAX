@@ -1,4 +1,4 @@
-name = DNA Generator
+name = DNA Completer
 description = Given a DNA sequence, produces the other half of the double helix.
 package = Custom Modules
 core = 7.x

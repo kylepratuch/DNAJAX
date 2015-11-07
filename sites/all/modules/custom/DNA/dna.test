@@ -1,0 +1,37 @@
+<?php
+
+//Unit tests:
+class DNATestCase extends DrupalUnitTestCase {
+
+  public static function getInfo() {
+    return array(
+      'name'        => 'DNA Completer unit tests',
+      'description' => 'Test that DNA Completer works properly',
+      'group'       => 'Code Review',
+    );
+  }
+
+  function testDNACompleter() {
+    //Describe:
+    $description = 'Completes a single-letter sequence.';
+    //Arrange:
+    $input = 'A';
+    //Act:
+    $result = complete_dna($input);
+    //Assert:
+    $expected_output = 'T';
+    $this->assertEqual($result, $expected_output, $description);
+
+    $description = 'Completes a two-letter sequence.';
+    $input = 'A C';
+    $result = complete_dna($input);
+    $expected_output = 'T G';
+    $this->assertEqual($result, $expected_output, $description);
+
+    $description = 'Completes a sequence several letters long.';
+    $input = 'A C T G';
+    $result = complete_dna($input);
+    $expected_output = 'T G A C';
+    $this->assertEqual($result, $expected_output, $description);
+  }
+}
