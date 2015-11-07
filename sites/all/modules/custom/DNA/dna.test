@@ -23,15 +23,15 @@ class DNATestCase extends DrupalUnitTestCase {
     $this->assertEqual($result, $expected_output, $description);
 
     $description = 'Completes a two-letter sequence.';
-    $input = 'A C';
+    $input = 'AC';
     $result = complete_dna($input);
-    $expected_output = 'T G';
+    $expected_output = 'TG';
     $this->assertEqual($result, $expected_output, $description);
 
     $description = 'Completes a sequence several letters long.';
-    $input = 'A C T G';
+    $input = 'ACTG';
     $result = complete_dna($input);
-    $expected_output = 'T G A C';
+    $expected_output = 'TGAC';
     $this->assertEqual($result, $expected_output, $description);
   }
 }

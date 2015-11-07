@@ -9,7 +9,7 @@ function dna_menu() {
     'type'            => MENU_NORMAL_ITEM,
   );
 
-  $items['dna_success'] = array(
+  $items['dna_success_page'] = array(
     'title'           => 'Success!',
     'page callback'   => 'dna_success',
     'access callback' => TRUE,
@@ -23,6 +23,7 @@ function dna_form() {
     '#title'        => 'DNA Sequence',
     '#type'         => 'textfield',
     '#description'  => t("Provide a DNA sequence in a format similar to this: 'ATTACG.'"),
+    '#element_validate' => array('element_validate_nucleotides'),
   );
 
   $form['submit'] = array(
@@ -32,11 +33,24 @@ function dna_form() {
   return $form;
 }
 
+//Validation. Ensure users enter only A,T,C,G.
+function element_validate_nucleotides($element, $form_state) {
+  $input = $form_state['values']['sequence'];
+  $input_array = str_split(strtoupper($input));
+  if (!in_array('A',$input_array) &&
+      !in_array('T',$input_array) &&
+      !in_array('C',$input_array) &&
+      !in_array('G',$input_array)) {
+
+        form_error($element, t("You may only enter the letters 'A, T, C, G' as nucleotides."));
+  }
+}
+
 function complete_dna($sequence) {
   //Make sure sequence is upper cased.
-  strtoupper($sequence);
+  $uppercase_sequence = strtoupper($sequence);
   //Explode into array.
-  $letters = str_split($sequence);
+  $letters = str_split($uppercase_sequence);
 
   //Setup array for other half of sequence.
   $opposites = array();
@@ -53,7 +67,7 @@ function complete_dna($sequence) {
     }
   }
   //Implode and return results.
-  $results = implode(" ", $opposites);
+  $results = implode($opposites);
   return $results;
 }
 
@@ -66,6 +80,6 @@ function dna_form_submit($form, &$form_state) {
 }
 
 function dna_success() {
-  $results = $_SESSION['dna_output'];
-  return $results;
+  $result = $_SESSION['dna_output'];
+  return $result;
 }
